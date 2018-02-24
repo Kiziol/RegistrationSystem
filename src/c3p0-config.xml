@@ -1,0 +1,13 @@
+<c3p0-config>
+    <default-config>
+        <property name="jdbcUrl">jdbc:mysql://localhost:3306/registersystem?useSSL=false&amp;useUnicode=true&amp;characterEncoding=utf-8</property>
+        <property name="driverClass">com.mysql.jdbc.Driver</property>
+        <property name="user">root</property>
+        <property name="password">123</property>
+
+        <property name="acquireIncrement">5</property>
+        <property name="initialPoolSize">20</property>
+        <property name="minPoolSize">20</property>
+        <property name="maxPoolSize">50</property>
+    </default-config>    
+</c3p0-config>

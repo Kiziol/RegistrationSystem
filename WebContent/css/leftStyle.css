@@ -1,0 +1,37 @@
+@charset "UTF-8";
+a:link,
+a:hover,
+a:visited,
+a:active {
+	color: #fff;
+  	text-decoration: none;
+}
+.wrap {
+	height: 100%;
+  	width: 200px;
+  	margin: 0;
+  	padding: 0;
+   	background: #fff;
+   	position: absolute;
+}
+.card {
+	height: 70px;
+	border-radius: 50px;
+	box-shadow: 10px 0 8px -8px rgba(0, 0, 0, 0.5);
+}
+.content {
+	display: inline-block
+ 	color: #fff;
+  	font-family: 'Droid Sans';
+ 	font-size: 30px;
+  	font-weight: bold;
+  	white-space: nowrap;
+}
+.bg-00 { background: #FF5511; }
+.bg-01 { background: #0066FF; }
+.bg-02 { background: #D28EFF; }
+.bg-03 { background: #00FF00; }
+.bg-04 { background: #E93EFF; }
+.bg-05 { background: #FF44AA; }
+.bg-06 { background: #9955FF; }
+.bg-07 { background: #00BBFF; }

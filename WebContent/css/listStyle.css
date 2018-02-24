@@ -1,0 +1,6 @@
+@charset "UTF-8";
+table{width:60%;}
+th{border-bottom:#33CCFF solid 2px; text-align:center; font-size:25px; padding:10px 0px;}
+td{border-bottom:#FF8800 solid 1px; text-align:center; font-size:20px; padding:8px 15px;}
+a{ color:#7744FF; text-decoration:none;}
+a:hover{ color:#1e628f; text-decoration:underline;}
