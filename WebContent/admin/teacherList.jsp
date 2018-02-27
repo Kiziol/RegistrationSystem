@@ -8,7 +8,10 @@
 </head>
 <body>
 	<jsp:include page="../page/left.jsp"></jsp:include>
-	<h1 style="margin-top: 100px;margin-left: 400px;color: #FF5511 ;">队员列表</h1>
+	<h1 style="margin-top: 100px;margin-left: 400px;color: #FF5511 ;">老师列表</h1>
+	<form action="${pageContext.request.contextPath }/FileServlet?download=teacher" method="post">
+		<button type="submit" style="margin-top: 10px;margin-left: 400px;">下载全部老师信息</button>
+	</form>
 	<table style="margin-top: 150px;margin-left: 400px;" cellpadding="0" cellspacing="0">
 		<tr>
 			<th>序号</th>

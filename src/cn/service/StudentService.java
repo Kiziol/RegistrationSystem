@@ -16,7 +16,7 @@ import cn.model.Student;
 
 public class StudentService {
 	
-	private StudentDao stdao= null;
+	private StudentDao stdao = null;
 	private static StudentService instance= null;
 	
 	private StudentService() {
