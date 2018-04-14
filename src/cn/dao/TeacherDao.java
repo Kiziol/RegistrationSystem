@@ -12,4 +12,5 @@ public interface TeacherDao {
 	public boolean checkTeacher(int tcid, int flag);
 	public boolean deleteTeacher(int tcid);
 	public Teacher get_Teacher(int tcid);
+	public int getTeacherNumber(int flag);
 }

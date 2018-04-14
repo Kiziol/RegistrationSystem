@@ -60,9 +60,8 @@ public class StudentDaoImpl implements StudentDao {
 	public LinkedList<Student> getStudent(int teamId) {
 		PreparedStatement pstmt = null;
 		ResultSet res = null;
-		String sql = "select * from student where tid = ?";
+		String sql = "select * from student s, college c where (s.cid = c.cid) and tid = ?";
 		List<Student> list = new LinkedList<Student>();
-		CollegeDao cldao = CollegeDaoImpl.getInstance();
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, teamId);
@@ -73,7 +72,7 @@ public class StudentDaoImpl implements StudentDao {
 				st.setSname(res.getString("sname"));
 				st.setSnumber(res.getString("snumber"));
 				st.setCid(res.getInt(4));
-				st.setCname(cldao.getColname(st.getCid()));
+				st.setCname(res.getString("cname"));
 				st.setTid(res.getInt(5));
 				st.setTelephone(res.getString("telephone"));
 				st.setEmail(res.getString("email"));
@@ -93,9 +92,8 @@ public class StudentDaoImpl implements StudentDao {
 	public LinkedList<Student> getAllStudent() {
 		PreparedStatement pstmt = null;
 		ResultSet res = null;
-		String sql = "select * from student";
+		String sql = "select * from student s, college c where (s.cid = c.cid)";
 		List<Student> list = new LinkedList<Student>();
-		CollegeDao cldao = CollegeDaoImpl.getInstance();
 		try {
 			pstmt = conn.prepareStatement(sql);
 			res = pstmt.executeQuery();
@@ -105,7 +103,7 @@ public class StudentDaoImpl implements StudentDao {
 				st.setSname(res.getString("sname"));
 				st.setSnumber(res.getString("snumber"));
 				st.setCid(res.getInt(4));
-				st.setCname(cldao.getColname(st.getCid()));
+				st.setCname(res.getString("cname"));
 				st.setTid(res.getInt(5));
 				st.setTelephone(res.getString("telephone"));
 				st.setEmail(res.getString("email"));
@@ -125,7 +123,7 @@ public class StudentDaoImpl implements StudentDao {
 	public LinkedList<Student> getUncheckStudent() {
 		PreparedStatement pstmt = null;
 		ResultSet res = null;
-		String sql = "select * from student where state = ?";
+		String sql = "select * from student s, college c where (s.cid = c.cid) and state = ?";
 		List<Student> list = new LinkedList<Student>();
 		CollegeDao cldao = CollegeDaoImpl.getInstance();
 		try {
@@ -138,7 +136,7 @@ public class StudentDaoImpl implements StudentDao {
 				st.setSname(res.getString("sname"));
 				st.setSnumber(res.getString("snumber"));
 				st.setCid(res.getInt(4));
-				st.setCname(cldao.getColname(st.getCid()));
+				st.setCname(res.getString("cname"));
 				st.setTid(res.getInt(5));
 				st.setTelephone(res.getString("telephone"));
 				st.setEmail(res.getString("email"));
@@ -207,9 +205,8 @@ public class StudentDaoImpl implements StudentDao {
 	public Student get_Student(int sid) {
 		PreparedStatement pstmt = null;
 		ResultSet res = null;
-		String sql = "select * from student where sid = ?";
+		String sql = "select * from student s, college c where (s.cid = c.cid) and sid = ?";
 		Student st = null;
-		CollegeDao cldao = CollegeDaoImpl.getInstance();
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, sid);
@@ -220,7 +217,7 @@ public class StudentDaoImpl implements StudentDao {
 				st.setSname(res.getString("sname"));
 				st.setSnumber(res.getString("snumber"));
 				st.setCid(res.getInt(4));
-				st.setCname(cldao.getColname(st.getCid()));
+				st.setCname(res.getString("cname"));
 				st.setTid(res.getInt(5));
 				st.setTelephone(res.getString("telephone"));
 				st.setEmail(res.getString("email"));
@@ -233,6 +230,30 @@ public class StudentDaoImpl implements StudentDao {
 			DBUtils.close(pstmt, res);
 		}
 		return st;
+	}
+
+	@Override
+	public int getStudentNumber(int flag) {
+		PreparedStatement pstmt = null;
+		ResultSet res = null;
+		String sql = "select count(*) from student where state = ?";
+		int number = 0;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			if(flag == 0) {
+				pstmt.setInt(1, 0);
+			} else if(flag == 1) {
+				pstmt.setInt(1, 1);
+			}
+			res = pstmt.executeQuery();
+			while(res.next()) {
+				number = res.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return number;
 	}
 
 }

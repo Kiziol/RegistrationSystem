@@ -12,16 +12,12 @@
 				<td style="color: #EE7700 ;">报名阶段</td>
 			</tr>
 			<tr>
-				<th style="padding: 15px;">队伍审核情况</th>
-				<td style="color: #FF0088;">30支队伍通过审核，0支队伍等待审核</td>
-			</tr>
-			<tr>
 				<th style="padding: 15px;">队员审核情况</th>
-				<td>3位队员通过审核，0位队员等待审核！</td>
+				<td>${snumber1 }位队员通过审核，${snumber0 }位队员等待审核！</td>
 			</tr>
 			<tr>
 				<th style="padding: 15px;">老师审核情况</th>
-				<td>1位指导老师通过审核，0位指导老师等待审核！</td>
+				<td>${tnumber1 }位指导老师通过审核，${tnumber0 }位指导老师等待审核！</td>
 			</tr>
 		</table>
 	

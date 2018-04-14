@@ -78,7 +78,7 @@
 
           	<c:if test="${sessionScope.type == 'admin'}">
       			<div class='card'>
-				    <a href='${pageContext.request.contextPath }/admin/index.jsp'>
+				    <a href='${pageContext.request.contextPath }/LoginServlet?index=1'>
 				      <div class='bg-01'>
 				    	<span class='content'>首页</span>
 				      </div>

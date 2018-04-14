@@ -59,7 +59,7 @@ public class TeacherDaoImpl implements TeacherDao {
 	public LinkedList<Teacher> getTeacher(int teamId) {
 		PreparedStatement pstmt = null;
 		ResultSet res = null;
-		String sql = "select * from teacher where tid = ?";
+		String sql = "select * from teacher t, college c where (t.cid = c.cid) and tid = ?";
 		List<Teacher> list = new LinkedList<Teacher>();
 		CollegeDao cldao = CollegeDaoImpl.getInstance();
 		try {
@@ -71,7 +71,7 @@ public class TeacherDaoImpl implements TeacherDao {
 				tc.setTcid(res.getInt(1));
 				tc.setTname(res.getString("tname"));
 				tc.setCid(res.getInt(3));
-				tc.setCname(cldao.getColname(tc.getCid()));
+				tc.setCname(res.getString("cname"));
 				tc.setTid(res.getInt(4));
 				tc.setTelephone(res.getString("telephone"));
 				tc.setEmail(res.getString("email"));
@@ -91,9 +91,8 @@ public class TeacherDaoImpl implements TeacherDao {
 	public LinkedList<Teacher> getAllTeacher() {
 		PreparedStatement pstmt = null;
 		ResultSet res = null;
-		String sql = "select * from teacher";
+		String sql = "select * from teacher t, college c where (t.cid = c.cid)";
 		List<Teacher> list = new LinkedList<Teacher>();
-		CollegeDao cldao = CollegeDaoImpl.getInstance();
 		try {
 			pstmt = conn.prepareStatement(sql);
 			res = pstmt.executeQuery();
@@ -102,7 +101,7 @@ public class TeacherDaoImpl implements TeacherDao {
 				tc.setTcid(res.getInt(1));
 				tc.setTname(res.getString("tname"));
 				tc.setCid(res.getInt(3));
-				tc.setCname(cldao.getColname(tc.getCid()));
+				tc.setCname(res.getString("cname"));
 				tc.setTid(res.getInt(4));
 				tc.setTelephone(res.getString("telephone"));
 				tc.setEmail(res.getString("email"));
@@ -122,9 +121,8 @@ public class TeacherDaoImpl implements TeacherDao {
 	public LinkedList<Teacher> getUncheckTeacher() {
 		PreparedStatement pstmt = null;
 		ResultSet res = null;
-		String sql = "select * from teacher where state = ?";
+		String sql = "select * from teacher t, college c where (t.cid = c.cid) and state = ?";
 		List<Teacher> list = new LinkedList<Teacher>();
-		CollegeDao cldao = CollegeDaoImpl.getInstance();
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, 0);
@@ -134,7 +132,7 @@ public class TeacherDaoImpl implements TeacherDao {
 				tc.setTcid(res.getInt(1));
 				tc.setTname(res.getString("tname"));
 				tc.setCid(res.getInt(3));
-				tc.setCname(cldao.getColname(tc.getCid()));
+				tc.setCname(res.getString("cname"));
 				tc.setTid(res.getInt(4));
 				tc.setTelephone(res.getString("telephone"));
 				tc.setEmail(res.getString("email"));
@@ -203,9 +201,8 @@ public class TeacherDaoImpl implements TeacherDao {
 	public Teacher get_Teacher(int tcid) {
 		PreparedStatement pstmt = null;
 		ResultSet res = null;
-		String sql = "select * from teacher where tcid = ?";
+		String sql = "select * from teacher t, college c where (t.cid = c.cid) and tcid = ?";
 		Teacher tc = null;
-		CollegeDao cldao = CollegeDaoImpl.getInstance();
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, tcid);
@@ -215,7 +212,7 @@ public class TeacherDaoImpl implements TeacherDao {
 				tc.setTcid(res.getInt(1));
 				tc.setTname(res.getString("tname"));
 				tc.setCid(res.getInt(3));
-				tc.setCname(cldao.getColname(tc.getCid()));
+				tc.setCname(res.getString("cname"));
 				tc.setTid(res.getInt(4));
 				tc.setTelephone(res.getString("telephone"));
 				tc.setEmail(res.getString("email"));
@@ -228,5 +225,29 @@ public class TeacherDaoImpl implements TeacherDao {
 			DBUtils.close(pstmt, res);
 		}
 		return tc;
+	}
+
+	@Override
+	public int getTeacherNumber(int flag) {
+		PreparedStatement pstmt = null;
+		ResultSet res = null;
+		String sql = "select count(*) from teacher where state = ?";
+		int number = 0;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			if(flag == 0) {
+				pstmt.setInt(1, 0);
+			} else if(flag == 1) {
+				pstmt.setInt(1, 1);
+			}
+			res = pstmt.executeQuery();
+			while(res.next()) {
+				number = res.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return number;
 	}
 }
