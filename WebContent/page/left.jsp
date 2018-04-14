@@ -12,7 +12,7 @@
 			<c:if test="${sessionScope.type == 'team'}">
 			
 				<div class='card'>
-				    <a href='${pageContext.request.contextPath }/user/index.jsp'>
+				    <a href='${pageContext.request.contextPath }/LoginServlet?index=2'>
 				      <div class='bg-01'>
 				    	<span class='content'>首页</span>
 				      </div>

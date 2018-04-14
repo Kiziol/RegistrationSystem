@@ -62,6 +62,20 @@ public class LoginServlet extends HttpServlet {
 				//session.setAttribute("username", request.getParameter("username"));
 				request.getRequestDispatcher("/admin/index.jsp").forward(request, response);
 				return;
+			} else if(index.equals("2")) {
+				HttpSession session = request.getSession();
+				TeacherDao tc = TeacherDaoImpl.getInstance();
+				StudentDao st = StudentDaoImpl.getInstance();
+				int tnumber0 = tc.getTeacherNumber((int)session.getAttribute("teamId"), 0);
+				int tnumber1 = tc.getTeacherNumber((int)session.getAttribute("teamId"), 1);
+				int snumber0 = st.getStudentNumber((int)session.getAttribute("teamId"), 0);
+				int snumber1 = st.getStudentNumber((int)session.getAttribute("teamId"), 1);
+				request.setAttribute("tnumber0", tnumber0);
+				request.setAttribute("tnumber1", tnumber1);
+				request.setAttribute("snumber0", snumber0);
+				request.setAttribute("snumber1", snumber1);
+				request.getRequestDispatcher("/user/index.jsp").forward(request, response);
+				return;
 			}
 		}
 		if(StringUtils.isEmpty(username) || StringUtils.isEmpty(password))
@@ -96,7 +110,18 @@ public class LoginServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("type", "team");
 			TeamDao team = TeamDaoImpl.getInstance();
-			session.setAttribute("teamId", team.getTeamId(username));
+			int teamId = team.getTeamId(username);
+			session.setAttribute("teamId", teamId);
+			TeacherDao tc = TeacherDaoImpl.getInstance();
+			StudentDao st = StudentDaoImpl.getInstance();
+			int tnumber0 = tc.getTeacherNumber(teamId, 0);
+			int tnumber1 = tc.getTeacherNumber(teamId, 1);
+			int snumber0 = st.getStudentNumber(teamId, 0);
+			int snumber1 = st.getStudentNumber(teamId, 1);
+			request.setAttribute("tnumber0", tnumber0);
+			request.setAttribute("tnumber1", tnumber1);
+			request.setAttribute("snumber0", snumber0);
+			request.setAttribute("snumber1", snumber1);
 			request.getRequestDispatcher("/user/index.jsp").forward(request, response);	
 		}
 	}

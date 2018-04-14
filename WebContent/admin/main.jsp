@@ -13,7 +13,7 @@
 			</tr>
 			<tr>
 				<th style="padding: 15px;">队员审核情况</th>
-				<td>${snumber1 }位队员通过审核，${snumber0 }位队员等待审核！</td>
+				<td>${snumber1 }位学生通过审核，${snumber0 }位学生等待审核！</td>
 			</tr>
 			<tr>
 				<th style="padding: 15px;">老师审核情况</th>

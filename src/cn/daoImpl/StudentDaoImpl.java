@@ -256,4 +256,30 @@ public class StudentDaoImpl implements StudentDao {
 		return number;
 	}
 
+	@Override
+	public int getStudentNumber(int teamId, int flag) {
+		PreparedStatement pstmt = null;
+		ResultSet res = null;
+		String sql = "select count(*) from student where state = ? and tid = ?";
+		int number = 0;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			if(flag == 0) {
+				pstmt.setInt(1, 0);
+				pstmt.setInt(2, teamId);
+			} else if(flag == 1) {
+				pstmt.setInt(1, 1);
+				pstmt.setInt(2, teamId);
+			}
+			res = pstmt.executeQuery();
+			while(res.next()) {
+				number = res.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return number;
+	}
+
 }

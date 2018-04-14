@@ -13,4 +13,5 @@ public interface StudentDao {
 	public boolean deleteStudent(int sid);
 	public Student get_Student(int sid);
 	public int getStudentNumber(int flag);
+	public int getStudentNumber(int teamId, int flag);
 }
